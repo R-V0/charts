@@ -3,39 +3,196 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Chart.js Tutorial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js Dashboard</title>
+
     <style>
-        body {
-            font-family: Arial;
-            padding: 20px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd369;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: white;
+            margin: 30px auto;
+            width: 90%;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* Charts */
         .chart-container {
-            width: 600px;
+            width: 90%;
+            max-width: 1000px;
             margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding-bottom: 50px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-card h2 {
+            margin-bottom: 20px;
+            color: #2a5298;
+            text-align: center;
+        }
+
+        /* Normal charts */
+        .chart-card canvas {
+            width: 100% !important;
+            height: 350px !important;
+        }
+
+        /* Pie chart custom size */
+        .pie-chart canvas {
+            width: 70% !important;
+            height: 500px !important;
+            margin: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 20px;
+        }
+
+        @media(max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .pie-chart canvas {
+                width: 100% !important;
+                height: 400px !important;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Finance Dashboard</div>
+
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Analytics</a>
+            <a href="#">Reports</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Business Analytics Dashboard</h1>
+        <p>Track Revenue, Expenses, and Profit Insights with Interactive Charts</p>
+    </section>
+
+    <!-- Charts -->
     <div class="chart-container">
-        <h2>Line Chart</h2>
-        <canvas id="myChart1"></canvas>
 
-        <h2>Bar Chart</h2>
-        <canvas id="myChart2"></canvas>
+        <!-- Line Chart -->
+        <div class="chart-card">
+            <h2>Line Chart</h2>
+            <canvas id="myChart1"></canvas>
+        </div>
 
-        <h2>Pie Chart</h2>
-        <canvas id="myChart3"></canvas>
+        <!-- Bar Chart -->
+        <div class="chart-card">
+            <h2>Bar Chart</h2>
+            <canvas id="myChart2"></canvas>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="chart-card pie-chart">
+            <h2>Pie Chart</h2>
+            <canvas id="myChart3"></canvas>
+        </div>
+
     </div>
- 
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Finance Dashboard | Built with Chart.js</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx1 = document.getElementById('myChart1')
+        const ctx1 = document.getElementById('myChart1');
         const ctx2 = document.getElementById('myChart2');
         const ctx3 = document.getElementById('myChart3');
 
@@ -44,6 +201,7 @@
         const expenses = [30000, 35000, 32000, 40000, 42000, 45000];
         const profit = [20000, 25000, 23000, 30000, 33000, 35000];
 
+        // Line Chart
         new Chart(ctx1, {
             type: 'line',
             data: {
@@ -52,24 +210,35 @@
                     label: 'Revenue',
                     data: revenue,
                     borderColor: 'blue',
-                    fill: false
-                }, 
+                    fill: false,
+                    tension: 0.3
+                },
                 {
                     label: 'Expenses',
                     data: expenses,
                     borderColor: 'red',
-                    fill: false
-                }, 
+                    fill: false,
+                    tension: 0.3
+                },
                 {
                     label: 'Profit',
                     data: profit,
                     borderColor: 'green',
-                    fill: false
+                    fill: false,
+                    tension: 0.3
                 }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
             }
         });
 
-        // ctx2 is going to be a bar chart showing revenue only
+        // Bar Chart
         new Chart(ctx2, {
             type: 'bar',
             data: {
@@ -77,24 +246,40 @@
                 datasets: [{
                     label: 'Revenue',
                     data: revenue,
-                    backgroundColor: 'blue'
+                    backgroundColor: 'blue',
+                    borderRadius: 8
                 }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
             }
         });
 
-        // ctx3 is going to be a pie chart showing the distribution of revenue in June 
-      
-            new Chart(ctx3, {
-                type: 'pie',
-                data: {
-                    labels: ['Reinvestment 40%', 'Salary 35%', 'Miscelleneous 25%'],
-                    datasets: [{
-                        data: [40, 35, 25],
-                        backgroundColor: ['blue', 'red', 'green']
-                    }]
+        // Pie Chart
+        new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Reinvestment 40%', 'Salary 35%', 'Miscelleneous 25%'],
+                datasets: [{
+                    data: [40, 35, 25],
+                    backgroundColor: ['blue', 'red', 'green']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
                 }
-            });
-
+            }
+        });
 
     </script>
 
